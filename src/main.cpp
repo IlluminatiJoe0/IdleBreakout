@@ -14,7 +14,7 @@ int main ()
 	Game game;
 	game.init();
 	
-	while (!WindowShouldClose())
+	while (!WindowShouldClose()) /t
 	{
 		game.update();
 
