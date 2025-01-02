@@ -15,9 +15,6 @@ const Color MODERN_BLACK = {14, 14, 16, 255};
 const Color NEON_RED = {255, 49, 49, 255};
 const Color OLED_BLACK = {0, 0, 0, 255};
 
-// PADDLE
-const int PADDLE_HEIGHT = 16;
-
 // WINDOW
 const int WINDOW_WIDTH = 1680;
 const int WINDOW_HEIGHT = 1000;
@@ -31,9 +28,13 @@ const int GAME_CENTER_Y = 800 / 2;
 const int GAME_WIDTH = 1280;
 const int GAME_HEIGHT = 800;
 
-const int GAME_X_OFFSET = 40;
-const int GAME_Y_OFFSET = 40;
+const int GAME_X_OFFSET = 20;
+const int GAME_Y_OFFSET = 20;
 
 // BALL
 const int BALL_RADIUS = 8;
 const int BALL_SPAWN_Y = WINDOW_HEIGHT * 0.8;
+
+// MENU
+const int UPGRADE_MENU_X_OFFSET = 20;
+const int UPGRADE_MENU_Y_OFFSET = 20;

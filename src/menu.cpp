@@ -18,6 +18,7 @@ Menu::Menu(int x, int y, int width, int height, int xOffset, int yOffset, Upgrad
     this->xOffset = xOffset;
     this->yOffset = yOffset;
     this->upgradeManager = upgradeManager;
+    this->menuBreakUpgradeCells = MenuBreakUpgradeCells(upgradeManager, x + xOffset, y + yOffset * 5, width - xOffset*2, height - yOffset*6);
 }
 
 void Menu::draw() {
@@ -37,8 +38,10 @@ void Menu::draw() {
     char fps[8];
     sprintf(fps, "%d", GetFPS());
     DrawText(fps, 0, 0, 10, NEON_GREEN);
+
+    this->menuBreakUpgradeCells.draw();
 }
 
 void Menu::update() {
-
+    this->menuBreakUpgradeCells.update();
 }

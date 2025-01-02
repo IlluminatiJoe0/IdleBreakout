@@ -8,7 +8,7 @@ BallManager::BallManager() {
 }
 
 BallManager::BallManager(UpgradeManager *upgradeManager) {
-    this->ballCount = 10;
+    this->ballCount = 1;
     this->speed = 3.0f;
     this->lifetime = 10.0f;
     this->spawnTimer = 15.0f;
