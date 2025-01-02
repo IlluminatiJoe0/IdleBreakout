@@ -13,7 +13,7 @@ public:
     
     void initBlocks();
     void update();
-    void draw();
+    void draw(int xOffset, int yOffset);
 
 private:
     Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X];

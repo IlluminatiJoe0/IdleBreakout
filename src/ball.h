@@ -12,11 +12,14 @@ public:
     void update(float speed, Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X]);
 
 private:
-    int x;
-    int y;
+    float x;
+    float y;
     int radius;
-    Vector2 velocity;
+    float angle;
 
     void move(float speed);
+    void reverseHorizontalDirection();
+    void reverseVerticalDirection();
+    void ensureNonZeroDirection();
     void checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed);
 };

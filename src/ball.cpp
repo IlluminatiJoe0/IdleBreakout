@@ -1,85 +1,132 @@
 #include "ball.h"
 #include "raymath.h"
+#include "randomizer.h"
+#include <algorithm>
+#include <iostream>
 
 Ball::Ball() {
     this->x = 0;
     this->y = 0;
     this->radius = BALL_RADIUS;
-    this->velocity = {1.0f, -1.0f};
+    this->angle = 0.0f;
 }
 
 Ball::Ball(int x, int y) {
     this->x = x;
     this->y = y;
     this->radius = 8;
-    this->velocity = {1.0f, -1.0f};
+    this->angle = randomFloat(0.0f, 16.0f * PI);
 }
 
 void Ball::draw() {
     DrawCircle(this->x, this->y, this->radius, NEON_RED);
+    
+    // DEBUG
+    // char buffer[32];
+    // sprintf(buffer, "%f, %f", this->direction.x, this->direction.y);
+    // int width = MeasureText(buffer, 6);
+    // DrawText(buffer, this->x - width / 2, this->y - this->radius * 4, 6, NEON_RED);
 }
 
 void Ball::update(float speed, Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X]) {
     move(speed);
     checkCollision(block, speed);
+    ensureNonZeroDirection();
 }
 
-void Ball::move(float speed)
-{
-    Vector2 v = this->velocity * speed;
-
-    this->x += v.x;
-    this->y += v.y;
+void Ball::move(float speed) {
+    this->x += cos(this->angle) * speed;
+    this->y += sin(this->angle) * speed;
 }
+
+void Ball::reverseHorizontalDirection() {
+    this->angle = PI - this->angle;
+}
+
+void Ball::reverseVerticalDirection() {
+    this->angle = -this->angle;
+}
+
+void Ball::ensureNonZeroDirection() {
+    float a = this->angle;
+    float minVal = 0.1f;
+
+    if (a <= minVal && angle >= -minVal) {
+        this->angle = randomFloat(0.0f, 16.0f * PI);
+    } else if (a >= 3*(PI/2) - minVal && angle <= 3*(PI/2) + minVal) {
+        this->angle = randomFloat(0.0f, 16.0f * PI);
+    } else if (a <= PI/2 - minVal && angle >= PI/2 + minVal) {
+        this->angle = randomFloat(0.0f, 16.0f * PI);
+    } else if (a >= PI - minVal && angle <= PI + minVal) {
+        this->angle = randomFloat(0.0f, 16.0f * PI);
+    }
+}
+
 
 void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed) {
     // Check collision with sides of window
-    if (this->x - this->radius <= 0) {
-        this->velocity.x = -this->velocity.x;
-    } else if (this->x + this->radius >= GetScreenWidth()) {
-        this->velocity.x = -this->velocity.x;
+    // left edge
+    if (this->x - this->radius <= GAME_X_OFFSET) {
+        reverseHorizontalDirection();
+        this->x = this->radius + GAME_X_OFFSET + 4;
+    // right edge
+    } else if (this->x + this->radius - GAME_X_OFFSET >= GAME_WIDTH) {
+        reverseHorizontalDirection();
+        this->x = GAME_X_OFFSET + GAME_WIDTH - this->radius - 4;
     }
 
-    if (this->y - this->radius <= 0) {
-        this->velocity.y = -this->velocity.y;
-    } else if (this->y + this->radius >= GetScreenHeight()) {
-        this->velocity.y = -this->velocity.y;
+    // Check collision with top and bottom of window
+    // Top edge
+    if (this->y - this->radius <= GAME_Y_OFFSET) {
+        reverseVerticalDirection();
+        this->y = this->radius + GAME_Y_OFFSET;
+    // Bottom edge
+    } else if (this->y + this->radius - GAME_Y_OFFSET >= GAME_HEIGHT) {
+        reverseVerticalDirection();
+        this->y = GAME_Y_OFFSET + GAME_HEIGHT - this->radius;
     }
 
     for (int i = 0; i < BLOCK_COUNT_Y; i++) {
         for (int j = 0; j < BLOCK_COUNT_X; j++) {
             if (block[i][j].isDestroyed) continue;
 
-            if (this->x >= block[i][j].bounds.x && this->x <= block[i][j].bounds.x + block[i][j].bounds.width) {
-                float vCollisionMargin = speed * 1.1f;
+            // Get block bounds
+            Rectangle blockBounds = block[i][j].bounds;
 
-                // Brick bottom edge and ball top edge
-                if ((this->y - this->radius - block[i][j].bounds.y - block[i][j].bounds.height) <= vCollisionMargin && (this->y - this->radius - block[i][j].bounds.y - block[i][j].bounds.height) >= 0) {
-                    this->velocity.y = -this->velocity.y;
-                    block[i][j].hit();
-                    continue;
-                } else if ((this->y + this->radius - block[i][j].bounds.y) >= -vCollisionMargin && (this->y + this->radius - block[i][j].bounds.y <= 0)) {
-                    // Brick top edge and ball bottom edge
-                    this->velocity.y = -this->velocity.y;
-                    block[i][j].hit();
-                    continue;
+            // Check AABB collision
+            if (this->x + this->radius > blockBounds.x &&
+                this->x - this->radius < blockBounds.x + blockBounds.width &&
+                this->y + this->radius > blockBounds.y &&
+                this->y - this->radius < blockBounds.y + blockBounds.height) {
+
+                // Determine the side of collision by calculating overlap
+                float overlapLeft = (this->x + this->radius) - blockBounds.x;
+                float overlapRight = (blockBounds.x + blockBounds.width) - (this->x - this->radius);
+                float overlapTop = (this->y + this->radius) - blockBounds.y;
+                float overlapBottom = (blockBounds.y + blockBounds.height) - (this->y - this->radius);
+
+                // Find the smallest overlap to determine the collision side
+                float minOverlap = std::min({overlapLeft, overlapRight, overlapTop, overlapBottom});
+
+                if (minOverlap == overlapLeft) {
+                    // Collision on the left
+                    reverseHorizontalDirection();
+                } else if (minOverlap == overlapRight) {
+                    // Collision on the right
+                    reverseHorizontalDirection();
+                } else if (minOverlap == overlapTop) {
+                    // Collision on the top
+                    reverseVerticalDirection();
+                } else if (minOverlap == overlapBottom) {
+                    // Collision on the bottom
+                    reverseVerticalDirection();
                 }
-            }
 
-            if (this->y >= block[i][j].bounds.y && this->y <= block[i][j].bounds.y + block[i][j].bounds.height) {
-                float hCollisionMargin = speed * 0.8f;
+                // Mark the block as hit
+                block[i][j].hit();
 
-                // Brick right edge and ball left edge
-                if ((this->x - this->radius - block[i][j].bounds.x - block[i][j].bounds.width) <= hCollisionMargin && (this->x - this->radius - block[i][j].bounds.x - block[i][j].bounds.width) >= 0) {
-                    this->velocity.x = -this->velocity.x;
-                    block[i][j].hit();
-                    continue;
-                } else if ((this->x + this->radius - block[i][j].bounds.x) >= -hCollisionMargin && (this->x + this->radius - block[i][j].bounds.x <= 0)) {
-                    // Brick left edge and ball right edge
-                    this->velocity.x = -this->velocity.x;
-                    block[i][j].hit();
-                    continue;
-                }
+                // Break out of loop since one block can only be hit per update
+                return;
             }
         }
     }
