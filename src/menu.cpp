@@ -20,8 +20,6 @@ Menu::Menu(int x, int y, int width, int height, int xOffset, int yOffset, Game* 
     this->game = game;
 }
 
-
-
 void Menu::draw() {
     DrawRectangleLines(this->x, this->y, this->width, this->height, NEON_GREEN);
 
