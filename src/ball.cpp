@@ -86,6 +86,11 @@ void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed
         this->y = GAME_Y_OFFSET + GAME_HEIGHT - this->radius;
     }
 
+    // If the ball is below all the blocks, don't check collision
+    if (this->y - this->radius - 1 > GAME_Y_OFFSET + BLOCK_HEIGHT * BLOCK_COUNT_Y) {
+        return;
+    }
+    
     for (int i = 0; i < BLOCK_COUNT_Y; i++) {
         for (int j = 0; j < BLOCK_COUNT_X; j++) {
             if (block[i][j].isDestroyed) continue;
