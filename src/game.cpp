@@ -7,7 +7,7 @@ Game Game::init() {
     initBlocks();
     this->ballManager.init();
 
-    return Game();
+    return *this;
 }
 
 void Game::initBlocks() {
