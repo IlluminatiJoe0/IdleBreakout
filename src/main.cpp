@@ -15,8 +15,6 @@ int main ()
 	SetTargetFPS(60);
 
 	Game game;
-	game.init();
-
 	Menu menu = Menu(GAME_X_OFFSET * 2 + GAME_WIDTH, GAME_Y_OFFSET, WINDOW_WIDTH - GAME_WIDTH - GAME_X_OFFSET * 3, GAME_HEIGHT, GAME_X_OFFSET, GAME_Y_OFFSET, &game);
 	
 	while (!WindowShouldClose())

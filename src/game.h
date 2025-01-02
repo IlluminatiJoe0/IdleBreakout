@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "ballManager.h"
 #include "bigint.h"
+#include "blockManager.h"
 
 class Game {
 public:
@@ -12,13 +13,12 @@ public:
 
     bigint score;
     
-    void initBlocks();
     void update();
     void draw(int xOffset, int yOffset);
-    void increasePoints();
+    void increasePoints(int score);
 
 private:
-    Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X];
     BallManager ballManager;
+    BlockManager blockManager;
     
 };

@@ -9,9 +9,12 @@ public:
     Rectangle bounds;
 
     bool isDestroyed = false;
+    bool isCollected = false;
 
     void draw();
     void hit();
+
+    bool checkIsDestroyed();
 
 private:
     int x;

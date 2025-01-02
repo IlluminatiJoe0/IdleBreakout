@@ -36,3 +36,12 @@ void Block::hit() {
         this->isDestroyed = true;
     }
 }
+
+bool Block::checkIsDestroyed() {
+    if (this->isDestroyed && !this->isCollected) {
+        this->isCollected = true;
+        return true;
+    }
+
+    return false;
+}
