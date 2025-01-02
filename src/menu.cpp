@@ -25,14 +25,18 @@ void Menu::draw() {
 
     // Draw Score value
     std::string buffer = this->game->score.str;
-    int width = MeasureText(buffer.c_str(), 22);
-    DrawText(buffer.c_str(), this->x + this->width / 2 - width / 2, this->y + this->yOffset * 2, 22, NEON_GREEN);
+    int width = MeasureText(buffer.c_str(), 24);
+    DrawText(buffer.c_str(), this->x + this->width / 2 - width / 2, this->y + this->yOffset * 2, 24, NEON_GREEN);
 
     // Draw Score text
     std::string scoreText = "Score";
-    int scWidth = MeasureText(scoreText.c_str(), 18);
-    DrawText(scoreText.c_str(), this->x + this->width / 2 - scWidth / 2, this->y + this->yOffset, 18, NEON_GREEN);
+    int scWidth = MeasureText(scoreText.c_str(), 20);
+    DrawText(scoreText.c_str(), this->x + this->width / 2 - scWidth / 2, this->y + this->yOffset, 20, NEON_GREEN);
 
+    // FPS
+    char fps[8];
+    sprintf(fps, "%d", GetFPS());
+    DrawText(fps, 0, 0, 10, NEON_GREEN);
 }
 
 void Menu::update() {
