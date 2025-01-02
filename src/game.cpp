@@ -7,6 +7,8 @@ Game Game::init() {
     initBlocks();
     this->ballManager.init();
 
+    this->score = 0;
+
     return *this;
 }
 
@@ -32,4 +34,8 @@ void Game::draw(int xOffset, int yOffset) {
     this->ballManager.draw();
 
     DrawRectangleLines(GAME_X_OFFSET-1, GAME_Y_OFFSET-1, GAME_WIDTH + 1, GAME_HEIGHT + 1, NEON_GREEN);
+}
+
+void Game::increasePoints() {
+    this->score = this->score + 1;
 }

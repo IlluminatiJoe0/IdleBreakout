@@ -1,8 +1,11 @@
 #include "raylib.h"
 #include "game.h"
 #include "constants.h"
+#include "menu.h"
 
 #include "resource_dir.h"
+
+using namespace std;
 
 int main ()
 {
@@ -13,15 +16,19 @@ int main ()
 
 	Game game;
 	game.init();
+
+	Menu menu = Menu(GAME_X_OFFSET * 2 + GAME_WIDTH, GAME_Y_OFFSET, WINDOW_WIDTH - GAME_WIDTH - GAME_X_OFFSET * 3, GAME_HEIGHT, GAME_X_OFFSET, GAME_Y_OFFSET, &game);
 	
 	while (!WindowShouldClose())
 	{
 		game.update();
+		menu.update();
 
 		BeginDrawing();
 		ClearBackground(MODERN_BLACK);
 
 		game.draw(GAME_X_OFFSET, GAME_Y_OFFSET);
+		menu.draw();
 		
 		EndDrawing();
 	}
