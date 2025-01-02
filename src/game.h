@@ -14,6 +14,7 @@ public:
     bigint score;
     
     void update();
+    void resetState();
     void draw(int xOffset, int yOffset);
     void increasePoints(int score);
 

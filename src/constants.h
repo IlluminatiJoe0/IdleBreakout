@@ -1,7 +1,7 @@
 #pragma once
 
 // BLOCKS
-const int BLOCK_HEIGHT = 15;
+const int BLOCK_HEIGHT = 23;
 const int BLOCK_WIDTH = 39;
 
 const int BLOCK_COUNT_X = 32;

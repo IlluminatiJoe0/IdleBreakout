@@ -19,6 +19,16 @@ Game Game::init() {
 void Game::update() {
     this->ballManager.update(this->blockManager.block);
     increasePoints(this->blockManager.update());
+
+    // If there are no more blocks, reset the state
+    if (this->blockManager.blocksEmpty()) {
+        resetState();
+    }
+}
+
+void Game::resetState() {
+    this->ballManager.init();
+    this->blockManager.init();
 }
 
 void Game::draw(int xOffset, int yOffset) {

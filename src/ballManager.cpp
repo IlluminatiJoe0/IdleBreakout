@@ -1,7 +1,7 @@
 #include "ballManager.h"
 
 BallManager::BallManager() {
-    this->ballCount = 600;
+    this->ballCount = 10;
     this->speed = 3.0f;
     this->lifetime = 10.0f;
     this->spawnTimer = 15.0f;
@@ -20,6 +20,7 @@ void BallManager::draw() {
 }
 
 void BallManager::init() {
+    this->balls.clear();
     for (int i = 0; i < this->ballCount; i++) {
         spawnBall();
     }

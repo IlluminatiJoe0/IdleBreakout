@@ -11,8 +11,10 @@ public:
     void initBlocks();
     void draw();
     void init();
-    
+
     int update();
+
+    bool blocksEmpty();
 
 private:
     

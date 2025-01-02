@@ -91,7 +91,7 @@ void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed
     }
 
     // If the ball is below all the blocks, don't check collision
-    if (this->y - this->radius - 1 > GAME_Y_OFFSET + BLOCK_HEIGHT * BLOCK_COUNT_Y) {
+    if (this->y - this->radius - 1 > GAME_Y_OFFSET + (BLOCK_HEIGHT+1) * BLOCK_COUNT_Y) {
         return;
     }
     
@@ -103,11 +103,7 @@ void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed
             Rectangle blockBounds = block[i][j].bounds;
 
             // Check AABB collision
-            if (this->x + this->radius > blockBounds.x &&
-                this->x - this->radius < blockBounds.x + blockBounds.width &&
-                this->y + this->radius > blockBounds.y &&
-                this->y - this->radius < blockBounds.y + blockBounds.height) {
-
+            if (CheckCollisionCircleRec(Vector2{this->x, this->y}, this->radius, blockBounds)) {
                 // Determine the side of collision by calculating overlap
                 float overlapLeft = (this->x + this->radius) - blockBounds.x;
                 float overlapRight = (blockBounds.x + blockBounds.width) - (this->x - this->radius);
