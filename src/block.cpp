@@ -32,6 +32,8 @@ void Block::draw() {
 void Block::hit() {
     this->health -= 10;
 
+    PlaySound(SoundManager::GetInstance().GetSound("block_hit"));
+
     if (this->health <= 0) {
         this->isDestroyed = true;
     }

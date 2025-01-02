@@ -2,6 +2,7 @@
 #include "game.h"
 #include "constants.h"
 #include "menu.h"
+#include "soundManager.h"
 
 #include "resource_dir.h"
 
@@ -13,6 +14,9 @@ int main ()
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Idle Breakout");
 	SearchAndSetResourceDir("resources");
 	SetTargetFPS(60);
+	InitAudioDevice();
+
+	SoundManager::GetInstance().LoadSounds();
 
 	Game game;
 	Menu menu = Menu(GAME_X_OFFSET * 2 + GAME_WIDTH, GAME_Y_OFFSET, WINDOW_WIDTH - GAME_WIDTH - GAME_X_OFFSET * 3, GAME_HEIGHT, GAME_X_OFFSET, GAME_Y_OFFSET, &game);
@@ -30,6 +34,9 @@ int main ()
 		
 		EndDrawing();
 	}
+
+	SoundManager::GetInstance().UnloadSounds();
+	CloseAudioDevice();
 
 	CloseWindow();
 	return 0;

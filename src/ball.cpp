@@ -69,10 +69,12 @@ void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed
     if (this->x - this->radius <= GAME_X_OFFSET) {
         reverseHorizontalDirection();
         this->x = this->radius + GAME_X_OFFSET + 4;
+        PlaySound(SoundManager::GetInstance().GetSound("border_hit"));
     // right edge
     } else if (this->x + this->radius - GAME_X_OFFSET >= GAME_WIDTH) {
         reverseHorizontalDirection();
         this->x = GAME_X_OFFSET + GAME_WIDTH - this->radius - 4;
+        PlaySound(SoundManager::GetInstance().GetSound("border_hit"));
     }
 
     // Check collision with top and bottom of window
@@ -80,10 +82,12 @@ void Ball::checkCollision(Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X], float speed
     if (this->y - this->radius <= GAME_Y_OFFSET) {
         reverseVerticalDirection();
         this->y = this->radius + GAME_Y_OFFSET;
+        PlaySound(SoundManager::GetInstance().GetSound("border_hit"));
     // Bottom edge
     } else if (this->y + this->radius - GAME_Y_OFFSET >= GAME_HEIGHT) {
         reverseVerticalDirection();
         this->y = GAME_Y_OFFSET + GAME_HEIGHT - this->radius;
+        PlaySound(SoundManager::GetInstance().GetSound("border_hit"));
     }
 
     // If the ball is below all the blocks, don't check collision
