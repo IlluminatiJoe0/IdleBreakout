@@ -6,14 +6,14 @@
 
 static std::mt19937 gen(std::random_device{}());
 
-float getRandomNumber(float min, float max) {
+inline float getRandomNumber(float min, float max) {
     std::uniform_real_distribution<double> dist(min, max);
 
     return (float)dist(gen);
 }
 
 // Generate a random direction as a unit vector
-Vector2 getRandomDirection() {
+inline Vector2 getRandomDirection() {
     static std::uniform_real_distribution<float> angleDist(0.0f, 2.0f * PI); // 0 to 2π radians
     float angle = angleDist(gen);
 
@@ -21,6 +21,6 @@ Vector2 getRandomDirection() {
     return { std::cos(angle), std::sin(angle) };
 }
 
-float randomFloat(float min, float max) { 
+inline float randomFloat(float min, float max) { 
     return ((float)rand() / RAND_MAX) * (max - min) + min; 
 }

@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <iostream>
 
 Menu::Menu() {
     this->height = 0;

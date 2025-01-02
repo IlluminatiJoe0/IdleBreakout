@@ -2,9 +2,10 @@
 
 #include "raylib.h"
 #include "game.h"
-#include "constants.h"
-#include "upgradeManager.h"
+#include "util/constants.h"
+#include "manager/upgradeManager.h"
 #include "menuBreakUpgradeCells.h"
+#include <iostream>
 
 class Menu {
 public:

@@ -1,6 +1,4 @@
 #include "block.h"
-#include "constants.h"
-#include <iostream>
 
 Block::Block() {
     this->x = 0;

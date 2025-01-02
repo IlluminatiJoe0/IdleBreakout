@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "upgradeType.h"
-#include "bigint.h"
+#include "util/upgradeType.h"
+#include "util/bigint.h"
 
 class UpgradeManager {
 public:

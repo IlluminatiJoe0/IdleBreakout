@@ -1,11 +1,11 @@
 #pragma once
 
 #include "block.h"
-#include "constants.h"
-#include "ballManager.h"
-#include "bigint.h"
-#include "blockManager.h"
-#include "upgradeManager.h"
+#include "util/constants.h"
+#include "manager/ballManager.h"
+#include "util/bigint.h"
+#include "manager/blockManager.h"
+#include "manager/upgradeManager.h"
 
 class Game {
 public:

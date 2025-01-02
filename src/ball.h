@@ -1,9 +1,13 @@
 #pragma once
 
 #include "raylib.h"
-#include "constants.h"
+#include "util/constants.h"
 #include "block.h"
-#include "upgradeManager.h"
+#include "manager/upgradeManager.h"
+#include "raymath.h"
+#include "util/randomizer.h"
+#include <algorithm>
+#include <iostream>
 
 class Ball {
 public:

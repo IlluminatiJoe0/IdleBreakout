@@ -1,9 +1,9 @@
 #include "raylib.h"
 #include "game.h"
-#include "constants.h"
-#include "menu.h"
-#include "soundManager.h"
-#include "upgradeManager.h"
+#include "util/constants.h"
+#include "menu/menu.h"
+#include "manager/soundManager.h"
+#include "manager/upgradeManager.h"
 
 #include "resource_dir.h"
 

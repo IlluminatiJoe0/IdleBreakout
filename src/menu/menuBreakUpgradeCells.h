@@ -1,8 +1,8 @@
 #pragma once
 
-#include "upgradeManager.h"
+#include "manager/upgradeManager.h"
 #include "raylib.h"
-#include "constants.h"
+#include "util/constants.h"
 #include <vector>
 
 class MenuBreakUpgradeCells {

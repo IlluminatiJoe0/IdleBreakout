@@ -1,8 +1,4 @@
 #include "ball.h"
-#include "raymath.h"
-#include "randomizer.h"
-#include <algorithm>
-#include <iostream>
 
 Ball::Ball() {
     this->x = 0;

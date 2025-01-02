@@ -1,7 +1,9 @@
 #pragma once
 
 #include "raylib.h"
-#include "soundManager.h"
+#include "manager/soundManager.h"
+#include "util/constants.h"
+#include <iostream>
 
 class Block {
 public:
