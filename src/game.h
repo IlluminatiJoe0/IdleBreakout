@@ -5,13 +5,13 @@
 #include "ballManager.h"
 #include "bigint.h"
 #include "blockManager.h"
+#include "upgradeManager.h"
 
 class Game {
 public:
     Game();
+    Game(UpgradeManager* upgradeManager);
     Game init();
-
-    bigint score;
     
     void update();
     void resetState();
@@ -21,5 +21,6 @@ public:
 private:
     BallManager ballManager;
     BlockManager blockManager;
+    UpgradeManager* upgradeManager;
     
 };

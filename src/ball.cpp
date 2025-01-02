@@ -11,11 +11,12 @@ Ball::Ball() {
     this->angle = 0.0f;
 }
 
-Ball::Ball(int x, int y) {
+Ball::Ball(int x, int y, UpgradeManager* upgradeManager) {
     this->x = x;
     this->y = y;
     this->radius = 8;
-    this->angle = randomFloat(0.0f, 16.0f * PI);
+    this->angle = randomFloat(0.0f, 8.0f * PI);
+    this->upgradeManager = upgradeManager;
 }
 
 void Ball::draw() {
@@ -29,6 +30,9 @@ void Ball::draw() {
 }
 
 void Ball::update(float speed, Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X]) {
+    // Apply speed upgrades
+    speed = speed * this->upgradeManager->speedMultiplier + this->upgradeManager->speedBonus;
+
     move(speed);
     checkCollision(block, speed);
     ensureNonZeroDirection();
@@ -51,6 +55,7 @@ void Ball::ensureNonZeroDirection() {
     float a = this->angle;
     float minVal = 0.1f;
 
+    // If an angle is too close to one of the cardinal directions, pick a random angle
     if (a <= minVal && angle >= -minVal) {
         this->angle = randomFloat(0.0f, 16.0f * PI);
     } else if (a >= 3*(PI/2) - minVal && angle <= 3*(PI/2) + minVal) {

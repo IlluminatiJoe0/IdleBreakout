@@ -2,7 +2,13 @@
 
 Game::Game() {
     this->ballManager = BallManager();
-    this->score = 0;
+
+    this->init();
+}
+
+Game::Game(UpgradeManager *upgradeManager) {
+    this->upgradeManager = upgradeManager;
+    this->ballManager = BallManager(upgradeManager);
 
     this->init();
 }
@@ -10,8 +16,6 @@ Game::Game() {
 Game Game::init() {
     this->blockManager.init();
     this->ballManager.init();
-
-    this->score = 0;
 
     return *this;
 }
@@ -29,6 +33,7 @@ void Game::update() {
 void Game::resetState() {
     this->ballManager.init();
     this->blockManager.init();
+    this->upgradeManager->resetState();
 }
 
 void Game::draw(int xOffset, int yOffset) {
@@ -39,5 +44,5 @@ void Game::draw(int xOffset, int yOffset) {
 }
 
 void Game::increasePoints(int score) {
-    this->score += score;
+    this->upgradeManager->breakPoints += score;
 }

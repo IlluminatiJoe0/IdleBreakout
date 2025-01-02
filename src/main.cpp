@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "menu.h"
 #include "soundManager.h"
+#include "upgradeManager.h"
 
 #include "resource_dir.h"
 
@@ -18,8 +19,9 @@ int main ()
 
 	SoundManager::GetInstance().LoadSounds();
 
-	Game game;
-	Menu menu = Menu(GAME_X_OFFSET * 2 + GAME_WIDTH, GAME_Y_OFFSET, WINDOW_WIDTH - GAME_WIDTH - GAME_X_OFFSET * 3, GAME_HEIGHT, GAME_X_OFFSET, GAME_Y_OFFSET, &game);
+	UpgradeManager upgradeManager;
+	Game game = Game(&upgradeManager);
+	Menu menu = Menu(GAME_X_OFFSET * 2 + GAME_WIDTH, GAME_Y_OFFSET, WINDOW_WIDTH - GAME_WIDTH - GAME_X_OFFSET * 3, GAME_HEIGHT, GAME_X_OFFSET, GAME_Y_OFFSET, &upgradeManager);
 	
 	while (!WindowShouldClose())
 	{

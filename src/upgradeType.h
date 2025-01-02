@@ -1,0 +1,12 @@
+#pragma once
+
+enum class UpgradeType {
+    BALL_SPEED_ADD,
+    BALL_SPEED_MULT,
+    BALL_LIFETIME_ADD,
+    BALL_LIFETIME_MULT,
+    BALL_SPAWNTIME_ADD,
+    BALL_SPAWNTIME_MULT,
+    BALL_COUNT_ADD,
+    BALL_COUNT_MULT
+};

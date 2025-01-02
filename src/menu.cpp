@@ -10,26 +10,26 @@ Menu::Menu() {
     this->yOffset = 0;
 }
 
-Menu::Menu(int x, int y, int width, int height, int xOffset, int yOffset, Game* game) {
+Menu::Menu(int x, int y, int width, int height, int xOffset, int yOffset, UpgradeManager* upgradeManager) {
     this->x = x;
     this->y = y;
     this->width = width;
     this->height = height;
     this->xOffset = xOffset;
     this->yOffset = yOffset;
-    this->game = game;
+    this->upgradeManager = upgradeManager;
 }
 
 void Menu::draw() {
     DrawRectangleLines(this->x, this->y, this->width, this->height, NEON_GREEN);
 
-    // Draw Score value
-    std::string buffer = this->game->score.str;
+    // Draw Break Points value
+    std::string buffer = this->upgradeManager->breakPoints.str;
     int width = MeasureText(buffer.c_str(), 24);
     DrawText(buffer.c_str(), this->x + this->width / 2 - width / 2, this->y + this->yOffset * 2, 24, NEON_GREEN);
 
     // Draw Score text
-    std::string scoreText = "Score";
+    std::string scoreText = "Break Points";
     int scWidth = MeasureText(scoreText.c_str(), 20);
     DrawText(scoreText.c_str(), this->x + this->width / 2 - scWidth / 2, this->y + this->yOffset, 20, NEON_GREEN);
 
