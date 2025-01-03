@@ -14,6 +14,7 @@ public:
     Ball();
     Ball(int x, int y, UpgradeManager* upgradeManager);
     void draw();
+    void drawArc(float progress);
     void update(float speed, Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X]);
 
 private:

@@ -17,6 +17,7 @@ public:
     void init();
     void spawnBall();
     void destroyBall(Ball* ball);
+    void despawnBall();
 
 private:
     vector<Ball*> balls;

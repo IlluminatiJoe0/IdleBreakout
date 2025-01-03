@@ -25,6 +25,12 @@ void Ball::draw() {
     // DrawText(buffer, this->x - width / 2, this->y - this->radius * 4, 6, NEON_RED);
 }
 
+void Ball::drawArc(float progress) {
+    DrawCircleLines(this->x, this->y, this->radius, NEON_RED);
+    DrawCircleLines(this->x, this->y, this->radius -1, NEON_RED);
+    DrawCircleSector(Vector2{this->x, this->y}, this->radius, 360 - progress * 360, 0, 8, NEON_RED);
+}
+
 void Ball::update(float speed, Block block[BLOCK_COUNT_Y][BLOCK_COUNT_X]) {
     // Apply speed upgrades
     speed = speed * this->upgradeManager->speedMultiplier + this->upgradeManager->speedBonus;
